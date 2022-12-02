@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class InputHandler {
+public class UserCommunicationHandler {
 
     public int startGameOption() {
         int option;
@@ -30,7 +30,7 @@ public class InputHandler {
         }
         return option;
     }
-    public String placeCharacter(char player){
+    public String placeCharacter(char player, Board board){
         String field;
         System.out.println("Player " + player + " move");
         while(true) {
@@ -38,12 +38,19 @@ public class InputHandler {
                 System.out.print("Choose field to place your character: ");
                 Scanner sc = new Scanner(System.in);
                 field = sc.next().toLowerCase();
+                if(board.getBoard().get(field) != ' ') throw new FieldOccupiedException();
                 if (Pattern.matches("[abc][1-3]", field)) break;
                 else throw new InputMismatchException();
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input, Please try again");
+                System.out.println("Invalid input, please try again");
+            } catch (FieldOccupiedException e) {
+                System.out.println("Field is already occupied, please try another field");
             }
         }
         return field;
+    }
+    public void showResult(String result){
+        if(result.equals("Draw!")) System.out.println(result);
+        else System.out.println("Player " + result + " won!");
     }
 }

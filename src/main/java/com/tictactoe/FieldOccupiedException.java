@@ -1,2 +1,5 @@
-package com.tictactoe;public class FieldOccupiedException {
+package com.tictactoe;
+
+public class FieldOccupiedException extends Exception{
+    public FieldOccupiedException(){};
 }
