@@ -38,9 +38,12 @@ public class UserCommunicationHandler {
                 System.out.print("Choose field to place your character: ");
                 Scanner sc = new Scanner(System.in);
                 field = sc.next().toLowerCase();
-                if(board.getBoard().get(field) != ' ') throw new FieldOccupiedException();
-                if (Pattern.matches("[abc][1-3]", field)) break;
+                if (Pattern.matches("[abc][1-3]", field)) {
+                    if(board.getBoard().get(field) != ' ') throw new FieldOccupiedException();
+                    break;
+                }
                 else throw new InputMismatchException();
+
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, please try again");
             } catch (FieldOccupiedException e) {

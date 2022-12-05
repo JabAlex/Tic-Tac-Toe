@@ -4,7 +4,7 @@ public class Game {
     GameDisplayer gameDisplayer = new GameDisplayer();
     UserCommunicationHandler userCommunicationHandler = new UserCommunicationHandler();
     public void singlePlayerMode(){
-
+        System.out.println("Not yet implemented\n");
     }
     public void twoPlayerMode(){
         Board board = new Board();
@@ -34,6 +34,7 @@ public class Game {
         char column;
         int xCount = 0;
         int oCount = 0;
+        //Check if there are columns filled with same char
         for (column = 'a'; column <= 'c'; column++){
             for(row = 1; row <= 3; row ++){
                 if(board.getBoard().get("" + column + row) == 'X') xCount++;
@@ -46,6 +47,7 @@ public class Game {
             xCount = 0;
             oCount = 0;
         }
+        //check if there are rows filled with same char
         for (row = 1; row <= 3; row++){
             for(column = 'a'; column <= 'c'; column ++){
                 if(board.getBoard().get("" + column + row) == 'X') xCount++;
@@ -58,6 +60,7 @@ public class Game {
             xCount = 0;
             oCount = 0;
         }
+        //check diagonals
         if(board.getBoard().get("a1") == 'X' &&
                 board.getBoard().get("b2") == 'X' &&
                 board.getBoard().get("c3") == 'X') check = false;
