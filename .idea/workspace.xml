@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c4cf89b-3c35-4e27-bec0-eb1bbff7fc3f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/EasyMovePicker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/MovePicker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/tictactoe/TicTacToeTestSuite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/FieldOccupiedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/FieldOccupiedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/UserCommunicationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/UserCommunicationHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -48,7 +55,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.TicTacToeRunner">
     <configuration name="TicTacToeRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tictactoe.TicTacToeRunner" />
       <module name="Tic-Tac-Toe.main" />
@@ -62,8 +69,56 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TicTacToeTestSuite" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.tictactoe.TicTacToeTestSuite&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="TicTacToeTestSuite.gameEndTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.tictactoe.TicTacToeTestSuite.gameEndTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.TicTacToeTestSuite" />
+        <item itemvalue="Gradle.TicTacToeTestSuite.gameEndTest" />
         <item itemvalue="Application.TicTacToeRunner" />
       </list>
     </recent_temporary>
@@ -79,6 +134,9 @@
       <workItem from="1669837544457" duration="899000" />
       <workItem from="1670006661912" duration="12875000" />
       <workItem from="1670164887303" duration="843000" />
+      <workItem from="1670254534074" duration="1115000" />
+      <workItem from="1670407730685" duration="5418000" />
+      <workItem from="1670612894035" duration="5174000" />
     </task>
     <servers />
   </component>

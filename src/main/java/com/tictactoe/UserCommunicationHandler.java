@@ -30,6 +30,27 @@ public class UserCommunicationHandler {
         }
         return option;
     }
+    public int singlePlayerOption(){
+        int option;
+        System.out.print("""
+                Who goes first?
+                1. You
+                2. Computer
+                
+                """);
+        while (true){
+            try {
+                System.out.print("Choose option: ");
+                Scanner sc = new Scanner(System.in);
+                option = sc.nextInt();
+                if (option == 1 || option == 2) break;
+                else throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, Please try again");
+            }
+        }
+        return option;
+    }
     public String placeCharacter(char player, Board board){
         String field;
         System.out.println("Player " + player + " move");
@@ -38,11 +59,8 @@ public class UserCommunicationHandler {
                 System.out.print("Choose field to place your character: ");
                 Scanner sc = new Scanner(System.in);
                 field = sc.next().toLowerCase();
-                if (Pattern.matches("[abc][1-3]", field)) {
-                    if(board.getBoard().get(field) != ' ') throw new FieldOccupiedException();
-                    break;
-                }
-                else throw new InputMismatchException();
+                board.setCharacter(field, player);
+                break;
 
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, please try again");
@@ -52,8 +70,16 @@ public class UserCommunicationHandler {
         }
         return field;
     }
-    public void showResult(String result){
-        if(result.equals("Draw!")) System.out.println(result);
-        else System.out.println("Player " + result + " won!");
+    public void showResult(int result){
+        switch (result){
+            case 0:
+                System.out.printf("Draw");
+                break;
+            case 1:
+                System.out.println("Player X won");
+                break;
+            case 2:
+                System.out.println("Player O won");
+        }
     }
 }

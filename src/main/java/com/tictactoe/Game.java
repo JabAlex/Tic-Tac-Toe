@@ -4,77 +4,53 @@ public class Game {
     GameDisplayer gameDisplayer = new GameDisplayer();
     UserCommunicationHandler userCommunicationHandler = new UserCommunicationHandler();
     public void singlePlayerMode(){
-        System.out.println("Not yet implemented\n");
+        char player;
+        char computer;
+        boolean playerWin = false;
+        Board board = new Board();
+        MovePicker movePicker = new EasyMovePicker();
+        if(userCommunicationHandler.singlePlayerOption() == 1){
+            player = 'X';
+            computer = 'O';
+        } else{
+            player = 'O';
+            computer = 'X';
+        }
+        while(!board.endChecker()){
+            if(player == 'X') {
+                gameDisplayer.drawBoard(board);
+                userCommunicationHandler.placeCharacter(player, board);
+                if (!board.endChecker()) board.setCharacter(movePicker.pickMove(board), computer);
+                else playerWin = true;
+            }
+            else {
+                board.setCharacter(movePicker.pickMove(board), computer);
+                gameDisplayer.drawBoard(board);
+                if (!board.endChecker()) {
+                    userCommunicationHandler.placeCharacter(player, board);
+                    playerWin = true;
+                }
+                else playerWin = false;
+            }
+        }
+        gameDisplayer.drawBoard(board);
+        userCommunicationHandler.showResult(board.resultChecker());
     }
     public void twoPlayerMode(){
         Board board = new Board();
         char player = 'X';
-        gameDisplayer.drawBoard(board.getBoard());
-        while(endChecker(board)) {
-            board.setCharacter(userCommunicationHandler.placeCharacter(player, board), player);
-            gameDisplayer.drawBoard(board.getBoard());
+        gameDisplayer.drawBoard(board);
+        while(!board.endChecker()) {
+            userCommunicationHandler.placeCharacter(player, board);
+            gameDisplayer.drawBoard(board);
             player = switchPlayer(player);
         }
-        if(!board.getBoard().containsValue(' ')){
-            userCommunicationHandler.showResult("Draw!");
-        }
-        else {
-            player = switchPlayer(player);
-            userCommunicationHandler.showResult("" + player);
-        }
+        userCommunicationHandler.showResult(board.resultChecker());
     }
     private char switchPlayer(char player){
         if(player == 'O') player = 'X';
         else player = 'O';
         return player;
     }
-    private boolean endChecker(Board board){
-        boolean check = true;
-        int row;
-        char column;
-        int xCount = 0;
-        int oCount = 0;
-        //Check if there are columns filled with same char
-        for (column = 'a'; column <= 'c'; column++){
-            for(row = 1; row <= 3; row ++){
-                if(board.getBoard().get("" + column + row) == 'X') xCount++;
-                if(board.getBoard().get("" + column + row) == 'O') oCount++;
-            }
-            if(xCount >= 3 || oCount >= 3) {
-                check = false;
-                break;
-            }
-            xCount = 0;
-            oCount = 0;
-        }
-        //check if there are rows filled with same char
-        for (row = 1; row <= 3; row++){
-            for(column = 'a'; column <= 'c'; column ++){
-                if(board.getBoard().get("" + column + row) == 'X') xCount++;
-                if(board.getBoard().get("" + column + row) == 'O') oCount++;
-            }
-            if(xCount >= 3 || oCount >= 3) {
-                check = false;
-                break;
-            }
-            xCount = 0;
-            oCount = 0;
-        }
-        //check diagonals
-        if(board.getBoard().get("a1") == 'X' &&
-                board.getBoard().get("b2") == 'X' &&
-                board.getBoard().get("c3") == 'X') check = false;
-        if(board.getBoard().get("a1") == 'O' &&
-                board.getBoard().get("b2") == 'O' &&
-                board.getBoard().get("c3") == 'O') check = false;
-        if(board.getBoard().get("a3") == 'X' &&
-                board.getBoard().get("b2") == 'X' &&
-                board.getBoard().get("c1") == 'X') check = false;
-        if(board.getBoard().get("a3") == 'O' &&
-                board.getBoard().get("b2") == 'O' &&
-                board.getBoard().get("c1") == 'O') check = false;
 
-        if(!board.getBoard().containsValue(' ')) check = false;
-        return check;
-    }
 }

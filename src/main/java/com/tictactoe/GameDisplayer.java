@@ -3,7 +3,8 @@ package com.tictactoe;
 import java.util.Map;
 
 public class GameDisplayer {
-    public void drawBoard(Map<String, Character> gameState){
+    public void drawBoard(Board board){
+        Map<String, Character> gameState = board.getBoard();
         System.out.println("    a   b   c \n");
         System.out.println("1   " + gameState.get("a1")+ " │ " + gameState.get("b1") + " │ " + gameState.get("c1"));
         System.out.println("   ───┼───┼───");
