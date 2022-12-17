@@ -3,11 +3,12 @@ package com.tictactoe;
 public class Game {
     GameDisplayer gameDisplayer = new GameDisplayer();
     UserCommunicationHandler userCommunicationHandler = new UserCommunicationHandler();
-    public void singlePlayerMode(){
+    public void singlePlayerMode(int size, int inRowToWin){
         char player;
         char computer;
+        int[] field;
         boolean playerWin = false;
-        Board board = new Board();
+        Board board = new Board(size, inRowToWin);
         MovePicker movePicker = new EasyMovePicker();
         if(userCommunicationHandler.singlePlayerOption() == 1){
             player = 'X';
@@ -16,36 +17,70 @@ public class Game {
             player = 'O';
             computer = 'X';
         }
-        while(!board.endChecker()){
-            if(player == 'X') {
-                gameDisplayer.drawBoard(board);
-                userCommunicationHandler.placeCharacter(player, board);
-                if (!board.endChecker()) board.setCharacter(movePicker.pickMove(board), computer);
-                else playerWin = true;
+        while(true){
+            if(computer == 'X'){
+                if (computerMove(computer, board, movePicker)) break;
+                if (playerMove(player, board)) break;
             }
-            else {
-                board.setCharacter(movePicker.pickMove(board), computer);
-                gameDisplayer.drawBoard(board);
-                if (!board.endChecker()) {
-                    userCommunicationHandler.placeCharacter(player, board);
-                    playerWin = true;
-                }
-                else playerWin = false;
+            else{
+                if (playerMove(player, board)) break;
+                if (computerMove(computer, board, movePicker)) break;
             }
         }
-        gameDisplayer.drawBoard(board);
-        userCommunicationHandler.showResult(board.resultChecker());
     }
-    public void twoPlayerMode(){
-        Board board = new Board();
-        char player = 'X';
+
+    private boolean playerMove(char player, Board board) {
+        int[] field;
         gameDisplayer.drawBoard(board);
-        while(!board.endChecker()) {
-            userCommunicationHandler.placeCharacter(player, board);
+        field = userCommunicationHandler.placeCharacter(player, board);
+        if(board.endChecker(player, field[0], field[1]) == 1){
             gameDisplayer.drawBoard(board);
+            userCommunicationHandler.showResult('P');
+            return true;
+        }
+        if (board.endChecker(player, field[0], field[1]) == -1){
+            gameDisplayer.drawBoard(board);
+            userCommunicationHandler.showResult('D');
+            return true;
+        }
+        return false;
+    }
+
+    private boolean computerMove(char computer, Board board, MovePicker movePicker) {
+        int[] field;
+        field = movePicker.pickMove(board);
+        board.setCharacter(field[0], field[1], computer);
+        if(board.endChecker(computer, field[0], field[1]) == 1){
+            gameDisplayer.drawBoard(board);
+            userCommunicationHandler.showResult('C');
+            return true;
+        }
+        if(board.endChecker(computer, field[0], field[1]) == -1){
+            gameDisplayer.drawBoard(board);
+            userCommunicationHandler.showResult('D');
+            return true;
+        }
+        return false;
+    }
+
+    public void twoPlayerMode(int size, int inRowToWin){
+        Board board = new Board(size, inRowToWin);
+        char player = 'X';
+        int[] field;
+        gameDisplayer.drawBoard(board);
+        while(true) {
+            field = userCommunicationHandler.placeCharacter(player, board);
+            gameDisplayer.drawBoard(board);
+            if(board.endChecker(player, field[0], field[1]) == 1){
+                userCommunicationHandler.showResult(player);
+                break;
+            }
+            if (board.endChecker(player, field[0], field[1]) == -1){
+                userCommunicationHandler.showResult('D');
+                break;
+            }
             player = switchPlayer(player);
         }
-        userCommunicationHandler.showResult(board.resultChecker());
     }
     private char switchPlayer(char player){
         if(player == 'O') player = 'X';

@@ -1,95 +1,72 @@
 package com.tictactoe;
 
-import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 public class Board {
-    private final Map<String, Character> board = new HashMap<>();
-    public Board(){
-        board.put("a1", ' ');
-        board.put("a2", ' ');
-        board.put("a3", ' ');
-        board.put("b1", ' ');
-        board.put("b2", ' ');
-        board.put("b3", ' ');
-        board.put("c1", ' ');
-        board.put("c2", ' ');
-        board.put("c3", ' ');
-    }
-    public void setCharacter(String field, Character character) throws FieldOccupiedException {
-        if(!Pattern.matches("[abc][1-3]", field)) throw new InputMismatchException();
-        if(board.get(field) != ' ') throw new FieldOccupiedException();
-        board.replace(field, character);
-    }
-
-    public int resultChecker(){
-        // -1 game not ended
-        // 0 draw
-        // 1 X won
-        // 2 O won
-
-        int result = -1;
-        int row;
-        char column;
-        int xCount = 0;
-        int oCount = 0;
-        //Check if there are columns filled with same char
-        for (column = 'a'; column <= 'c'; column++){
-            for(row = 1; row <= 3; row ++){
-                if(board.get("" + column + row) == 'X') xCount++;
-                if(board.get("" + column + row) == 'O') oCount++;
+    private final char[][] board;
+    private int inRowToWin;
+    private int moveCount = 0;
+    public Board(int size, int inRowToWin){
+        this.inRowToWin = inRowToWin;
+        board = new char[size][size];
+        for(int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                board[i][j] = ' ';
             }
-            if(xCount >= 3) {
-                result = 1;
-                break;
-            } else if (oCount >= 3) {
-                result = 2;
-                break;
-            }
-            xCount = 0;
-            oCount = 0;
         }
-        //check if there are rows filled with same char
-        for (row = 1; row <= 3; row++){
-            for(column = 'a'; column <= 'c'; column ++){
-                if(board.get("" + column + row) == 'X') xCount++;
-                if(board.get("" + column + row) == 'O') oCount++;
-            }
-            if(xCount >= 3) {
-                result = 1;
-                break;
-            } else if (oCount >= 3) {
-                result = 2;
-                break;
-            }
-            xCount = 0;
-            oCount = 0;
+    }
+    public void setCharacter(int row, int column, char player) throws FieldOccupiedException, InputMismatchException{
+        if(row < 0 || row >= board.length) throw new InputMismatchException();
+        if(column < 0 || column >= board.length) throw new InputMismatchException();
+        if(board[row][column] != ' ') throw new FieldOccupiedException();
+        board[row][column] = player;
+        moveCount++;
+    }
+    public int endChecker(char character, int row, int column){
+        //1 - win
+        //0 - game on
+        //-1 - draw
+        int count = 0;
+        //check columns
+        for(int i = 0; i < board.length; i++){
+            if(board[i][column] == character) count++;
+            if(board[i][column] != character) count = 0;
+            if(count == inRowToWin) return 1;
         }
+        count = 0;
+        //check row
+        for (int i = 0; i < board.length; i++){
+            if (board[row][i] == character) count++;
+            if(board[row][i] != character) count = 0;
+            if(count == inRowToWin) return 1;
+        }
+        count = 0;
         //check diagonals
-        if(board.get("a1") == 'X' &&
-                board.get("b2") == 'X' &&
-                board.get("c3") == 'X') result = 1;
-        if(board.get("a1") == 'O' &&
-                board.get("b2") == 'O' &&
-                board.get("c3") == 'O') result = 2;
-        if(board.get("a3") == 'X' &&
-                board.get("b2") == 'X' &&
-                board.get("c1") == 'X') result = 1;
-        if(board.get("a3") == 'O' &&
-                board.get("b2") == 'O' &&
-                board.get("c1") == 'O') result = 2;
-        //check for a draw
-        if(!board.containsValue(' ')) result = 0;
-        return result;
+        //y=-x+row+column
+        //y=x+row-column
+        for(int x = 0; x < board.length; x++){
+            if((-1 * x + column + row) >= board.length) x++;
+            else {
+                if (((-1 * x + column + row)) < 0) break;
+                if (board[x][-1 * x + column + row] == character) count++;
+                if (board[x][-1 * x + column + row] != character) count = 0;
+                if (count == inRowToWin) return 1;
+            }
+        }
+        count = 0;
+        for(int x = 0; x < board.length; x++){
+            if((x + column - row) < 0) x -= (x + column - row);
+            if((x + column - row) >= board.length) break;
+            if(board[x][x + column - row] == character) count++;
+            if(board[x][x + column - row] != character) count = 0;
+            if(count == inRowToWin) return 1;
+        }
+        //check for draw
+        if (moveCount >= board.length * board.length) return -1;
+        return 0;
     }
-    public boolean endChecker(){
-        boolean check = false;
-        if(resultChecker() >= 0) check = true;
-        return check;
-    }
-    public Map<String, Character> getBoard() {
+
+    public char[][] getBoard() {
         return board;
     }
 
