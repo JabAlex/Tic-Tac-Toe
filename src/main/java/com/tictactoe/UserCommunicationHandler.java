@@ -57,7 +57,7 @@ public class UserCommunicationHandler {
         int size;
         while (true) {
             try {
-                System.out.println("Choose the size of your board: ");
+                System.out.print("Choose the size of your board: ");
                 Scanner sc = new Scanner(System.in);
                 size = sc.nextInt();
                 if(size > 1) break;
@@ -72,7 +72,7 @@ public class UserCommunicationHandler {
         int inRowToWin;
         while (true) {
             try {
-                System.out.println("How many characters in a row to win? ");
+                System.out.print("How many characters in a row to win? ");
                 Scanner sc = new Scanner(System.in);
                 inRowToWin = sc.nextInt();
                 if (inRowToWin <= size && inRowToWin > 1) break;
@@ -104,7 +104,28 @@ public class UserCommunicationHandler {
         }
         return option;
     }
-    public int[] placeCharacter(char player, Board board){
+    public int difficultyOption(){
+        int option;
+        System.out.print("""
+                Choose difficulty:
+                1. Easy
+                2. Hard
+                
+                """);
+        while (true){
+            try {
+                System.out.print("Choose option: ");
+                Scanner sc = new Scanner(System.in);
+                option = sc.nextInt();
+                if (option == 1 || option == 2) break;
+                else throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, Please try again");
+            }
+        }
+        return option;
+    }
+    public void placeCharacter(char player, Board board){
         String field;
         int column;
         int row;
@@ -126,7 +147,6 @@ public class UserCommunicationHandler {
                 System.out.println("Field is already occupied, please try another field");
             }
         }
-        return new int[]{row, column};
     }
     public void showResult(char player){
         switch (player) {

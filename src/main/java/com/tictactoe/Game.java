@@ -6,10 +6,8 @@ public class Game {
     public void singlePlayerMode(int size, int inRowToWin){
         char player;
         char computer;
-        int[] field;
-        boolean playerWin = false;
         Board board = new Board(size, inRowToWin);
-        MovePicker movePicker = new EasyMovePicker();
+        MovePicker movePicker;
         if(userCommunicationHandler.singlePlayerOption() == 1){
             player = 'X';
             computer = 'O';
@@ -17,6 +15,9 @@ public class Game {
             player = 'O';
             computer = 'X';
         }
+        if(userCommunicationHandler.difficultyOption() == 1) movePicker = new EasyMovePicker();
+        else movePicker = new HardMovePicker(computer, player);
+
         while(true){
             if(computer == 'X'){
                 if (computerMove(computer, board, movePicker)) break;
@@ -30,15 +31,14 @@ public class Game {
     }
 
     private boolean playerMove(char player, Board board) {
-        int[] field;
         gameDisplayer.drawBoard(board);
-        field = userCommunicationHandler.placeCharacter(player, board);
-        if(board.endChecker(player, field[0], field[1]) == 1){
+        userCommunicationHandler.placeCharacter(player, board);
+        if(board.endChecker() == 1){
             gameDisplayer.drawBoard(board);
             userCommunicationHandler.showResult('P');
             return true;
         }
-        if (board.endChecker(player, field[0], field[1]) == -1){
+        if (board.endChecker() == -1){
             gameDisplayer.drawBoard(board);
             userCommunicationHandler.showResult('D');
             return true;
@@ -49,13 +49,17 @@ public class Game {
     private boolean computerMove(char computer, Board board, MovePicker movePicker) {
         int[] field;
         field = movePicker.pickMove(board);
-        board.setCharacter(field[0], field[1], computer);
-        if(board.endChecker(computer, field[0], field[1]) == 1){
+        try{
+            board.setCharacter(field[0], field[1], computer);
+        }catch(FieldOccupiedException e){
+            System.out.println("" + field[0] + field[1]);
+        }
+        if(board.endChecker() == 1){
             gameDisplayer.drawBoard(board);
             userCommunicationHandler.showResult('C');
             return true;
         }
-        if(board.endChecker(computer, field[0], field[1]) == -1){
+        if(board.endChecker() == -1){
             gameDisplayer.drawBoard(board);
             userCommunicationHandler.showResult('D');
             return true;
@@ -66,16 +70,15 @@ public class Game {
     public void twoPlayerMode(int size, int inRowToWin){
         Board board = new Board(size, inRowToWin);
         char player = 'X';
-        int[] field;
         gameDisplayer.drawBoard(board);
         while(true) {
-            field = userCommunicationHandler.placeCharacter(player, board);
+            userCommunicationHandler.placeCharacter(player, board);
             gameDisplayer.drawBoard(board);
-            if(board.endChecker(player, field[0], field[1]) == 1){
+            if(board.endChecker() == 1){
                 userCommunicationHandler.showResult(player);
                 break;
             }
-            if (board.endChecker(player, field[0], field[1]) == -1){
+            if (board.endChecker() == -1){
                 userCommunicationHandler.showResult('D');
                 break;
             }

@@ -20,7 +20,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(0, 1, 'O');
             board.setCharacter(0, 2, 'O');
             //Then
-            assertEquals(1, board.endChecker('O', 0, 1));
+            assertEquals(1, board.endChecker());
         }
         @Test
         void gameEndForOVerticalTest(){
@@ -31,7 +31,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(1, 1, 'O');
             board.setCharacter(2, 1, 'O');
             //Then
-            assertEquals(1, board.endChecker('O', 0, 1));
+            assertEquals(1, board.endChecker());
         }
         @Test
         void gameEndForODiagonalTest(){
@@ -42,7 +42,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(1, 1, 'O');
             board.setCharacter(2, 2, 'O');
             //Then
-            assertEquals(1, board.endChecker('O', 1, 1));
+            assertEquals(1, board.endChecker());
         }
         @Test
         void gameEndForXHorizontalTest(){
@@ -53,7 +53,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(0, 1, 'X');
             board.setCharacter(0, 2, 'X');
             //Then
-            assertEquals(1, board.endChecker('X', 0, 1));
+            assertEquals(1, board.endChecker());
         }
         @Test
         void gameEndForXVerticalTest(){
@@ -64,7 +64,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(1, 1, 'X');
             board.setCharacter(2, 1, 'X');
             //Then
-            assertEquals(1, board.endChecker('X', 0, 1));
+            assertEquals(1, board.endChecker());
         }
         @Test
         void gameEndForXDiagonalTest(){
@@ -75,7 +75,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(1, 1, 'X');
             board.setCharacter(2, 2, 'X');
             //Then
-            assertEquals(1, board.endChecker('X', 1, 1));
+            assertEquals(1, board.endChecker());
         }
         @Test
         void drawTest(){
@@ -92,7 +92,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(2, 1, 'X');
             board.setCharacter(2, 2, 'O');
             //Then
-            assertEquals(-1, board.endChecker('X', 2, 0));
+            assertEquals(-1, board.endChecker());
         }
     }
     @Nested
@@ -106,11 +106,10 @@ public class TicTacToeTestSuite {
             board.setCharacter(0, 1, 'O');
             board.setCharacter(0, 2, 'O');
             board.setCharacter(0, 3, 'O');
-            board.setCharacter(0, 4, 'O');
             board.setCharacter(0, 5, 'X');
+            board.setCharacter(0, 4, 'O');
             //Then
-            assertEquals(1, board.endChecker('O', 0, 0));
-            assertEquals(0, board.endChecker('X', 0, 5));
+            assertEquals(1, board.endChecker());
         }
 
         @Test
@@ -124,7 +123,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(3, 0, 'O');
             board.setCharacter(4, 0, 'O');
             //Then
-            assertEquals(1, board.endChecker('O', 0, 0));
+            assertEquals(1, board.endChecker());
         }
 
         @Test
@@ -138,7 +137,7 @@ public class TicTacToeTestSuite {
             board.setCharacter(3, 3, 'O');
             board.setCharacter(4, 4, 'O');
             //Then
-            assertEquals(1, board.endChecker('O', 0, 0));
+            assertEquals(1, board.endChecker());
         }
 
         @Test
@@ -160,7 +159,7 @@ public class TicTacToeTestSuite {
                 }
             }
                 //Then
-                assertEquals(-1, board.endChecker('X', 0, 1));
+                assertEquals(-1, board.endChecker());
             }
         }
 
@@ -182,6 +181,64 @@ public class TicTacToeTestSuite {
            //When & Then
            assertThrows(InputMismatchException.class, () -> board.setCharacter(-1, 0, 'X'));
        }
+    }
+
+    @Nested
+    class AITests{
+        @Test
+        void hardMovePickerTest1(){
+            //Given
+            Board board = new Board(3, 3);
+            MovePicker movePicker = new HardMovePicker('X', 'O');
+            int expectedRow = 2;
+            int expectedColumn = 0;
+            int[] chosenMove;
+            //When
+            board.setCharacter(1, 1, 'X');
+            board.setCharacter(1, 0, 'O');
+            board.setCharacter(2, 2, 'X');
+            board.setCharacter(0, 0, 'O');
+            chosenMove = movePicker.pickMove(board);
+            //Then
+            assertEquals(expectedRow, chosenMove[0]);
+            assertEquals(expectedColumn, chosenMove[1]);
+        }
+        @Test
+        void hardMovePickerTest2(){
+            //Given
+            Board board = new Board(3, 3);
+            MovePicker movePicker = new HardMovePicker('X', 'O');
+            int expectedRow = 1;
+            int expectedColumn = 0;
+            int[] chosenMove;
+            //When
+            board.setCharacter(1, 1, 'X');
+            board.setCharacter(0, 0, 'O');
+            board.setCharacter(2, 2, 'X');
+            board.setCharacter(2, 0, 'O');
+            chosenMove = movePicker.pickMove(board);
+            //Then
+            assertEquals(expectedRow, chosenMove[0]);
+            assertEquals(expectedColumn, chosenMove[1]);
+        }
+        @Test
+        void hardMovePickerTest3(){
+            //Given
+            Board board = new Board(3, 3);
+            MovePicker movePicker = new HardMovePicker('O', 'X');
+            int expectedRow = 0;
+            int expectedColumn = 0;
+            int[] chosenMove;
+            //When
+            board.setCharacter(1, 1, 'X');
+            board.setCharacter(1, 0, 'O');
+            board.setCharacter(2, 2, 'X');
+            board.setCharacter(2, 1, 'O');
+            chosenMove = movePicker.pickMove(board);
+            //Then
+            assertEquals(expectedRow, chosenMove[0]);
+            assertEquals(expectedColumn, chosenMove[1]);
+        }
     }
 
 }

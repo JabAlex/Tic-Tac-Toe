@@ -1,14 +1,11 @@
 package com.tictactoe;
-
-import java.util.Map;
-
 public class GameDisplayer {
 
     public void drawBoard(Board board) {
         char column = 'a';
         int row = 1;
         String line = " ";
-        String separatorLine = "";
+        String separatorLine;
         for (int i = 0; i < board.getBoard().length; i++) {
             line = line + "   " + column;
             column++;
