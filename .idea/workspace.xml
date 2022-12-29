@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c4cf89b-3c35-4e27-bec0-eb1bbff7fc3f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/HardMovePicker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/profile.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/Profile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/ProfileManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/Ranking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/SameProfileException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/profile.list" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/EasyMovePicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/EasyMovePicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/FieldOccupiedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/FieldOccupiedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/GameDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/GameDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/MovePicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/MovePicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/HardMovePicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/HardMovePicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/TicTacToeRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/TicTacToeRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tictactoe/UserCommunicationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tictactoe/UserCommunicationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/tictactoe/TicTacToeTestSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/tictactoe/TicTacToeTestSuite.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +98,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Dev\Kodilla\Project1\Tic-Tac-Toe\src\main\resources" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.tictactoe" />
     </key>
   </component>
   <component name="RunManager" selected="Application.TicTacToeRunner">
@@ -236,7 +242,8 @@
       <workItem from="1671353275807" duration="1630000" />
       <workItem from="1671471205604" duration="10496000" />
       <workItem from="1672174613071" duration="4443000" />
-      <workItem from="1672234465429" duration="3049000" />
+      <workItem from="1672234465429" duration="15565000" />
+      <workItem from="1672317752215" duration="13453000" />
     </task>
     <servers />
   </component>
@@ -264,11 +271,6 @@
           <properties class="com.tictactoe.FieldOccupiedException" package="com.tictactoe" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/tictactoe/HardMovePicker.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

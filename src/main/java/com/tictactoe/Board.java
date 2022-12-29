@@ -6,7 +6,7 @@ public class Board {
     private final char[][] board;
     private final int inRowToWin;
     private int moveCount = 0;
-    private int[] lastMove = new int[2];
+    private final int[] lastMove = new int[2];
     private char lastPlayer;
     public Board(int size, int inRowToWin){
         this.inRowToWin = inRowToWin;

@@ -13,8 +13,10 @@ public class UserCommunicationHandler {
          Options:
          1. Single Player
          2. Two Players
-         3. Change Board Size
-         4. Quit
+         3. Board Size
+         4. Profiles
+         5. Leaderboards
+         6. Quit
        
          """);
         while (true) {
@@ -22,7 +24,68 @@ public class UserCommunicationHandler {
                 System.out.print("Choose option: ");
                 Scanner sc = new Scanner(System.in);
                 option = sc.nextInt();
-                if(option >= 1 && option <= 4) break;
+                if(option >= 1 && option <= 6) break;
+                else throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, Please try again");
+            }
+        }
+        return option;
+    }
+
+    public int singlePlayerOption(){
+        int option;
+        System.out.print("""
+                Who goes first?
+                1. You
+                2. Computer
+                
+                """);
+        while (true){
+            try {
+                System.out.print("Choose option: ");
+                Scanner sc = new Scanner(System.in);
+                option = sc.nextInt();
+                if (option == 1 || option == 2) break;
+                else throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, Please try again");
+            }
+        }
+        return option;
+    }
+    public int twoPlayerOption(String player1, String player2){
+        int option;
+        System.out.println("Who goes first?");
+        System.out.println("1. " + player1);
+        System.out.println("2. " + player2 + "\n");
+        while (true) {
+            try {
+                System.out.print("Choose option: ");
+                Scanner sc = new Scanner(System.in);
+                option = sc.nextInt();
+                if (option == 1 || option == 2) break;
+                else throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, Please try again");
+            }
+        }
+        return option;
+    }
+    public int difficultyOption(){
+        int option;
+        System.out.print("""
+                Choose difficulty:
+                1. Easy
+                2. Hard
+                
+                """);
+        while (true){
+            try {
+                System.out.print("Choose option: ");
+                Scanner sc = new Scanner(System.in);
+                option = sc.nextInt();
+                if(option >= 1 && option <= 2) break;
                 else throw new InputMismatchException();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, Please try again");
@@ -81,14 +144,13 @@ public class UserCommunicationHandler {
                 System.out.println("Amount of characters must be a number greater than 1 and smaller than the boards size, please try again");
             }
         }
-            return inRowToWin;
+        return inRowToWin;
     }
-    public int singlePlayerOption(){
+    public int profileOption(){
         int option;
         System.out.print("""
-                Who goes first?
-                1. You
-                2. Computer
+                1. Choose profile
+                2. Delete profile
                 
                 """);
         while (true){
@@ -96,7 +158,7 @@ public class UserCommunicationHandler {
                 System.out.print("Choose option: ");
                 Scanner sc = new Scanner(System.in);
                 option = sc.nextInt();
-                if (option == 1 || option == 2) break;
+                if(option >= 1 && option <= 2) break;
                 else throw new InputMismatchException();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, Please try again");
@@ -104,32 +166,11 @@ public class UserCommunicationHandler {
         }
         return option;
     }
-    public int difficultyOption(){
-        int option;
-        System.out.print("""
-                Choose difficulty:
-                1. Easy
-                2. Hard
-                
-                """);
-        while (true){
-            try {
-                System.out.print("Choose option: ");
-                Scanner sc = new Scanner(System.in);
-                option = sc.nextInt();
-                if (option == 1 || option == 2) break;
-                else throw new InputMismatchException();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input, Please try again");
-            }
-        }
-        return option;
-    }
-    public void placeCharacter(char player, Board board){
+    public void placeCharacter(char player, Board board, String playerName){
         String field;
         int column;
         int row;
-        System.out.println("Player " + player + " move");
+        System.out.println(playerName + " turn");
         while(true) {
             try {
                 System.out.print("Choose field to place your character: ");
