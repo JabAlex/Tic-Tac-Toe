@@ -11,13 +11,14 @@ public class ProfileManager {
         loadProfiles();
     }
     public Profile chooseProfile(Profile currentProfile, boolean isPlayer2){
-        listProfiles(true);
+        listProfiles(true, false);
         Profile profile;
         int option;
         while (true) {
             try {
                 if(currentProfile != null && !isPlayer2) System.out.println("Current profile: " + currentProfile.getName());
-                System.out.print("Choose profile: ");
+                if(isPlayer2)System.out.print("Choose profile for player 2: ");
+                else System.out.println("Choose profile: ");
                 Scanner sc = new Scanner(System.in);
                 option = sc.nextInt();
                 if(option == profileList.size() + 1) break;
@@ -38,9 +39,10 @@ public class ProfileManager {
         if(option == profileList.size() + 1){
             while(true) {
                 try {
-                    System.out.print("Choose name: ");
+                    System.out.print("Choose name(max 10 characters): ");
                     Scanner sc = new Scanner(System.in);
                     String name = sc.next();
+                    if(name.length() > 10) throw new InputMismatchException();
                     profile = new Profile(name);
                     profileList.add(profile);
                     break;
@@ -53,30 +55,37 @@ public class ProfileManager {
         saveProfiles();
         return profile;
     }
-    public void deleteProfile(){
-        listProfiles(false);
+    public void deleteProfile(Profile currentProfile){
+        listProfiles(false, true);
         int option;
         while (true) {
             try {
                 System.out.print("Choose profile: ");
                 Scanner sc = new Scanner(System.in);
                 option = sc.nextInt();
-                if (option >= 1 && option <= profileList.size()) break;
+                if(option == profileList.size() + 1) break;
+                if (option >= 1 && option <= profileList.size()){
+                    if(currentProfile.equals(profileList.get(option - 1))) throw new SameProfileException();
+                    break;
+                }
                 else throw new InputMismatchException();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, Please try again");
+            } catch (SameProfileException e){
+                System.out.println("Can't delete current profile");
             }
         }
-        profileList.remove(option - 1);
+        if(option != profileList.size() + 1) profileList.remove(option - 1);
         saveProfiles();
     }
-    private void listProfiles(boolean showCreateNewProfile){
+    private void listProfiles(boolean showCreateNewProfile, boolean showBack){
         int index = 1;
         for (Profile profile: profileList) {
             System.out.println(index + ". " + profile.getName());
             index++;
         }
         if(showCreateNewProfile) System.out.println(index + ". Create new profile");
+        if(showBack) System.out.println(index + ". Back");
         System.out.println();
     }
     public void saveProfiles(){
@@ -85,7 +94,7 @@ public class ProfileManager {
             oos.writeObject(profileList);
             oos.close();
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("save error");
         }
     }
     @SuppressWarnings("unchecked")
@@ -95,7 +104,7 @@ public class ProfileManager {
             profileList = (ArrayList<Profile>)ois.readObject();
             ois.close();
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("load error");
         }    }
 
     public List<Profile> getProfileList() {

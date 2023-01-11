@@ -15,15 +15,18 @@ public class TicTacToeRunner {
         while(!end) {
             switch (userCommunicationHandler.startGameOption()) {
                 case 1:
+                    //play single player
                     game.singlePlayerMode(size, inRowToWin, player1Profile);
                     profileManager.saveProfiles();
                     break;
                 case 2:
+                    //play 2 players
                     player2Profile = profileManager.chooseProfile(player1Profile, true);
                     game.twoPlayerMode(size, inRowToWin, player1Profile, player2Profile);
                     profileManager.saveProfiles();
                     break;
                 case 3:
+                    //choose board size
                     switch(userCommunicationHandler.changeBoardSize(size)){
                         case 1:
                             size = 3;
@@ -42,19 +45,25 @@ public class TicTacToeRunner {
                     profileManager.saveProfiles();
                     break;
                 case 4:
+                    //change or delete profile
                     switch(userCommunicationHandler.profileOption()){
                         case 1:
+                            //change profile
                             player1Profile = profileManager.chooseProfile(player1Profile, false);
                             break;
                         case 2:
-                            profileManager.deleteProfile();
+                            //delete profile
+                            profileManager.deleteProfile(player1Profile);
                     }
                     profileManager.saveProfiles();
                     break;
                 case 5:
+                    //rankings
                     ranking.showRanking(profileManager.getProfileList());
+                    profileManager.saveProfiles();
                     break;
                 case 6:
+                    //exit game
                     end = true;
                     break;
 

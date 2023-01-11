@@ -6,8 +6,8 @@ public class Game {
     public void singlePlayerMode(int size, int inRowToWin, Profile playerProfile){
         char player;
         char computer;
-        Board board = new Board(size, inRowToWin);
         MovePicker movePicker;
+        Board board = new Board(size, inRowToWin);
         if(userCommunicationHandler.singlePlayerOption() == 1){
             player = 'X';
             computer = 'O';
@@ -20,23 +20,25 @@ public class Game {
         } else {
             movePicker = new EasyMovePicker();
         }
-        playerProfile.addPlayedGame();
 
         while(true){
-            if(computer == 'X'){
-                if (computerMove(computer, board, movePicker, playerProfile)) break;
-                if (playerMove(player, board, playerProfile)) break;
-            }
-            else{
-                if (playerMove(player, board, playerProfile)) break;
-                if (computerMove(computer, board, movePicker, playerProfile)) break;
+            try {
+                if (computer == 'X') {
+                    if (computerMove(computer, board, movePicker, playerProfile)) break;
+                    if (playerMove(player, board, playerProfile)) break;
+                } else {
+                    if (playerMove(player, board, playerProfile)) break;
+                    if (computerMove(computer, board, movePicker, playerProfile)) break;
+                }
+            } catch (ExitGameException e){
+                break;
             }
         }
     }
 
     private boolean playerMove(char player, Board board, Profile playerProfile) {
         gameDisplayer.drawBoard(board);
-        userCommunicationHandler.placeCharacter(player, board, "Your");
+        userCommunicationHandler.placeCharacter(player, board, playerProfile);
         if(board.endChecker() == 1){
             playerProfile.addWonGame();
             gameDisplayer.drawBoard(board);
@@ -73,8 +75,6 @@ public class Game {
 
     public void twoPlayerMode(int size, int inRowToWin, Profile player1Profile, Profile player2Profile){
         Board board = new Board(size, inRowToWin);
-        player1Profile.addPlayedGame();
-        player2Profile.addPlayedGame();
         char player;
         char player1;
         char player2;
@@ -92,8 +92,13 @@ public class Game {
         }
         gameDisplayer.drawBoard(board);
         while(true) {
-            if(isPlayer1Turn)userCommunicationHandler.placeCharacter(player, board, player1Profile.getName() + "'s");
-            else userCommunicationHandler.placeCharacter(player, board, player2Profile.getName() + "'s");
+            try {
+                if (isPlayer1Turn)
+                    userCommunicationHandler.placeCharacter(player, board, player1Profile);
+                else userCommunicationHandler.placeCharacter(player, board, player2Profile);
+            } catch (ExitGameException e){
+                break;
+            }
             gameDisplayer.drawBoard(board);
             if(board.endChecker() == 1){
                 if(isPlayer1Turn) {

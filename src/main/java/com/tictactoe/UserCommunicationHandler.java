@@ -24,7 +24,7 @@ public class UserCommunicationHandler {
                 System.out.print("Choose option: ");
                 Scanner sc = new Scanner(System.in);
                 option = sc.nextInt();
-                if(option >= 1 && option <= 6) break;
+                if(option >= 1 && option <= 7) break;
                 else throw new InputMismatchException();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, Please try again");
@@ -166,16 +166,17 @@ public class UserCommunicationHandler {
         }
         return option;
     }
-    public void placeCharacter(char player, Board board, String playerName){
+    public void placeCharacter(char player, Board board, Profile playerName) throws ExitGameException{
         String field;
         int column;
         int row;
-        System.out.println(playerName + " turn");
+        System.out.println(playerName.getName() + " turn");
         while(true) {
             try {
-                System.out.print("Choose field to place your character: ");
+                System.out.print("Choose field to place your character(type 1 to exit to main menu): ");
                 Scanner sc = new Scanner(System.in);
                 field = sc.next().toLowerCase();
+                if(field.equals("1")) throw new ExitGameException();
                 if(field.length() != 2) throw new InputMismatchException();
                 column = field.charAt(0) - 97;
                 row = field.charAt(1) - 49;

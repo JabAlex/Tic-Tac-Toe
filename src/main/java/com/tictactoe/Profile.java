@@ -1,13 +1,10 @@
 package com.tictactoe;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Profile implements Serializable {
-    private String name;
-    private List<Board> savedGames = new ArrayList<>();
-    private int playedGames;
+    private final String name;
     private int wonGames;
     private int lostGames;
     private int drawnGames;
@@ -16,16 +13,6 @@ public class Profile implements Serializable {
         this.name = name;
     }
 
-    public void saveGame(Board board){
-        savedGames.add(board);
-    }
-    public Board loadGame(int option){
-        Board chosenGame = savedGames.get(option);
-        return chosenGame;
-    }
-    public void addPlayedGame(){
-        playedGames++;
-    }
     public void addWonGame(){
         wonGames++;
     }
@@ -35,13 +22,14 @@ public class Profile implements Serializable {
     public void addDrawnGame(){
         drawnGames++;
     }
+    public void resetStats(){
+        wonGames = 0;
+        lostGames = 0;
+        drawnGames = 0;
+    }
 
     public String getName() {
         return name;
-    }
-
-    public List<Board> getSavedGames() {
-        return savedGames;
     }
 
     public int getWonGames() {

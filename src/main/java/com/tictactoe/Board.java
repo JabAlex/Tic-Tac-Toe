@@ -1,8 +1,9 @@
 package com.tictactoe;
 
+import java.io.Serializable;
 import java.util.InputMismatchException;
 
-public class Board {
+public class Board implements Serializable {
     private final char[][] board;
     private final int inRowToWin;
     private int moveCount = 0;
